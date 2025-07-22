@@ -1,0 +1,16 @@
+.form-container {
+    margin-top: 40px;
+
+  .form-group {
+    margin-right: 20px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+}
+
+.full-width {
+  width: 100%;
+}

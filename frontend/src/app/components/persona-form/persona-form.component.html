@@ -1,0 +1,69 @@
+<div class="form-container">
+  <form [formGroup]="personaForm" class="form-group">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre y Apellido</mat-label>
+      <input matInput formControlName="fullName" />
+      <mat-error *ngIf="personaForm.get('fullName')?.hasError('required')">
+        Este campo es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="identification" />
+      <mat-error *ngIf="personaForm.get('identification')?.hasError('required')">
+        Este campo es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Edad</mat-label>
+      <input matInput type="number" formControlName="age" />
+      <mat-error *ngIf="personaForm.get('age')?.hasError('required')">
+        Este campo es obligatorio
+      </mat-error>
+      <mat-error *ngIf="personaForm.get('age')?.hasError('min')">
+        Debe tener al menos 18 años
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Género</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="masculino">Masculino</mat-option>
+        <mat-option value="femenino">Femenino</mat-option>
+        <mat-option value="n/a">Prefiero no decirlo</mat-option>
+      </mat-select>
+      <mat-error *ngIf="personaForm.get('gender')?.hasError('required')">
+        Este campo es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-slide-toggle formControlName="hasDriverLicense">
+      ¿Tiene carnet de conducir?
+    </mat-slide-toggle>
+
+    <mat-slide-toggle formControlName="isFitToDrive">
+      ¿Se encuentra apto para conducir?
+    </mat-slide-toggle>
+
+    <mat-slide-toggle formControlName="hasVisionProblems">
+      ¿Tiene problemas de vista?
+    </mat-slide-toggle>
+
+    <div *ngIf="personaForm.get('hasVisionProblems')?.value">
+      <mat-slide-toggle formControlName="needsGlasses">
+        ¿Debe utilizar anteojos?
+      </mat-slide-toggle>
+    </div>
+
+    <mat-slide-toggle formControlName="isDiabetic">
+      ¿Es diabético?
+    </mat-slide-toggle>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>¿Padece alguna enfermedad? ¿Cuál?</mat-label>
+      <input matInput formControlName="otherDiseases" />
+    </mat-form-field>
+  </form>
+</div>
