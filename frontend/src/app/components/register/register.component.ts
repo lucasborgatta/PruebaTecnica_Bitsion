@@ -6,16 +6,16 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
   registerForm: FormGroup;
   error: string = '';
   hide = signal(true);
-    clickEvent(event: MouseEvent) {
-      this.hide.set(!this.hide());
-      event.stopPropagation();
-    }
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -24,7 +24,16 @@ export class RegisterComponent {
   ) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?]).{8,}$/
+          ),
+        ],
+      ],
     });
   }
 
@@ -37,9 +46,9 @@ export class RegisterComponent {
       next: () => {
         this.router.navigate(['/login']);
       },
-      error: err => {
+      error: (err) => {
         this.error = err.error || 'Error al registrar.';
-      }
+      },
     });
   }
 }

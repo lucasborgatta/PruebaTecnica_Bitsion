@@ -1,42 +1,154 @@
 <div class="form-table-container">
   <h1>Listado de clientes:</h1>
-  <table mat-table class="form-table" [dataSource]="dataSource">
+  <mat-expansion-panel class="filtros-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title> Filtros </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form class="filter-form" (ngSubmit)="aplicarFiltro()">
+      <div class="filtros-container">
+        <div class="filtros-grid-2x2">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre completo</mat-label>
+            <input matInput [(ngModel)]="filtros.fullName" name="fullName" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>DNI</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              [(ngModel)]="filtros.identification"
+              name="identification"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Edad</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              [(ngModel)]="filtros.age"
+              name="age"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Género</mat-label>
+            <mat-select [(ngModel)]="filtros.gender" name="gender">
+              <mat-option value="">Todos</mat-option>
+              <mat-option value="Masculino">Masculino</mat-option>
+              <mat-option value="Femenino">Femenino</mat-option>
+              <mat-option value="N/A">Prefiero no decirlo</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="filtros-checkboxes-grid">
+          <div class="checkbox-group">
+            <span class="checkbox-title">Maneja</span>
+            <mat-checkbox
+              [(ngModel)]="drivesTrue"
+              name="drivesTrue"
+              (change)="actualizarCheckboxFiltro('drives')"
+              >Sí</mat-checkbox
+            >
+            <mat-checkbox
+              [(ngModel)]="drivesFalse"
+              name="drivesFalse"
+              (change)="actualizarCheckboxFiltro('drives')"
+              >No</mat-checkbox
+            >
+          </div>
+          <div class="checkbox-group">
+            <span class="checkbox-title">Anteojos</span>
+            <mat-checkbox
+              [(ngModel)]="usesGlassesTrue"
+              name="usesGlassesTrue"
+              (change)="actualizarCheckboxFiltro('usesGlasses')"
+              >Sí</mat-checkbox
+            >
+            <mat-checkbox
+              [(ngModel)]="usesGlassesFalse"
+              name="usesGlassesFalse"
+              (change)="actualizarCheckboxFiltro('usesGlasses')"
+              >No</mat-checkbox
+            >
+          </div>
+          <div class="checkbox-group">
+            <span class="checkbox-title">Diabético</span>
+            <mat-checkbox
+              [(ngModel)]="isDiabeticTrue"
+              name="isDiabeticTrue"
+              (change)="actualizarCheckboxFiltro('isDiabetic')"
+              >Sí</mat-checkbox
+            >
+            <mat-checkbox
+              [(ngModel)]="isDiabeticFalse"
+              name="isDiabeticFalse"
+              (change)="actualizarCheckboxFiltro('isDiabetic')"
+              >No</mat-checkbox
+            >
+          </div>
+          <div class="checkbox-group">
+            <span class="checkbox-title">Estado cliente</span>
+            <mat-checkbox
+              [(ngModel)]="isActiveTrue"
+              name="isActiveTrue"
+              (change)="actualizarCheckboxFiltro('isActive')"
+              >Activo</mat-checkbox
+            >
+            <mat-checkbox
+              [(ngModel)]="isActiveFalse"
+              name="isActiveFalse"
+              (change)="actualizarCheckboxFiltro('isActive')"
+              >Inactivo</mat-checkbox
+            >
+          </div>
+        </div>
+      </div>
+      <div class="filtros-botones">
+        <button mat-raised-button color="primary" type="submit">Buscar</button>
+        <button mat-button type="button" (click)="limpiarFiltros()">
+          Limpiar filtros
+        </button>
+      </div>
+    </form>
+  </mat-expansion-panel>
+  <table mat-table class="form-table" [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="fullName">
-      <th mat-header-cell *matHeaderCellDef>Nombre completo</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre completo</th>
       <td mat-cell *matCellDef="let element">{{ element.fullName }}</td>
     </ng-container>
     <ng-container matColumnDef="identification">
-      <th mat-header-cell *matHeaderCellDef>DNI</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
       <td mat-cell *matCellDef="let element">{{ element.identification }}</td>
     </ng-container>
     <ng-container matColumnDef="age">
-      <th mat-header-cell *matHeaderCellDef>Edad</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Edad</th>
       <td mat-cell *matCellDef="let element">{{ element.age }}</td>
     </ng-container>
     <ng-container matColumnDef="gender">
-      <th mat-header-cell *matHeaderCellDef>Genero</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Genero</th>
       <td mat-cell *matCellDef="let element">{{ element.gender }}</td>
     </ng-container>
     <ng-container matColumnDef="isActive">
-      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
       <td mat-cell *matCellDef="let element">
         {{ element.isActive ? "Activo" : "Inactivo" }}
       </td>
     </ng-container>
     <ng-container matColumnDef="drives">
-      <th mat-header-cell *matHeaderCellDef>Maneja</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Maneja</th>
       <td mat-cell *matCellDef="let element">
         {{ element.drives ? "Si" : "No" }}
       </td>
     </ng-container>
     <ng-container matColumnDef="usesGlasses">
-      <th mat-header-cell *matHeaderCellDef>Anteojos</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Anteojos</th>
       <td mat-cell *matCellDef="let element">
         {{ element.usesGlasses ? "Si" : "No" }}
       </td>
     </ng-container>
     <ng-container matColumnDef="isDiabetic">
-      <th mat-header-cell *matHeaderCellDef>Diabetico</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Diabetico</th>
       <td mat-cell *matCellDef="let element">
         {{ element.isDiabetic ? "Si" : "No" }}
       </td>
@@ -72,5 +184,9 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 20, 50, 100]"
+    showFirstLastButtons
+  ></mat-paginator>
 </div>

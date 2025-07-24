@@ -15,7 +15,6 @@ import { AuthGuard } from './guard/auth.guard';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptor } from './guard/auth.interceptor';
-
 @NgModule({
   declarations: [
     AppComponent,

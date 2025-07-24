@@ -1,9 +1,72 @@
 .form-table-container {
   margin: 40px 20px;
+}
 
-  h1 {
-    margin: 20px;
-    text-align: center;
-    color: #b71c1c;
+.form-table-container h1 {
+  margin: 20px;
+  text-align: center;
+  color: #b71c1c;
+}
+
+.form-table-container .filtros-panel {
+  margin: 20px 0;
+}
+
+.filtros-grid {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.filtros-container {
+  .filtros-grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
   }
+  .filtros-checkboxes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+}
+
+.filtros-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 260px;
+  flex: 2;
+}
+
+.filtros-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 160px;
+  flex: 1;
+  justify-content: flex-start;
+  margin-top: 8px;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: 20px;
+  padding: 8px 12px;
+}
+
+.checkbox-title {
+  font-weight: bold;
+  color: #b71c1c;
+  margin-bottom: 2px;
+  font-size: 1rem;
+}
+
+.filtros-botones {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
 }

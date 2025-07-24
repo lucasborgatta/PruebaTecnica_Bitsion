@@ -15,6 +15,8 @@ import {MatRippleModule} from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSortModule } from '@angular/material/sort';
+import { MatExpansionModule } from '@angular/material/expansion';
 @NgModule({
   exports: [
     MatFormFieldModule,
@@ -32,7 +34,9 @@ import { MatChipsModule } from '@angular/material/chips';
     MatRippleModule,
     ReactiveFormsModule,
     MatPaginatorModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSortModule,
+    MatExpansionModule
   ]
 })
 export class MaterialModule { }

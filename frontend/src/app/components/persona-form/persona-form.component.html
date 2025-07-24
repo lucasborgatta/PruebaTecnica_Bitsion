@@ -13,7 +13,7 @@
   >
     <div class="form-grid">
       <div class="form-col">
-        <mat-form-field appearance="fill" class="full-width">
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>Nombre y Apellido</mat-label>
           <input
             matInput
@@ -28,7 +28,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="full-width">
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>DNI</mat-label>
           <input
             matInput
@@ -52,7 +52,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="full-width">
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>Edad</mat-label>
           <input
             matInput
@@ -68,7 +68,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="full-width">
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>Género</mat-label>
           <mat-select [errorStateMatcher]="matcher" formControlName="gender">
             <mat-option value="Masculino">Masculino</mat-option>
@@ -82,7 +82,7 @@
       </div>
 
       <div class="form-col">
-        <mat-form-field appearance="fill" class="full-width">
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>¿Padece alguna enfermedad? (Enter para agregar)</mat-label>
           <mat-chip-grid #chipGrid aria-label="Enfermedades">
             <mat-chip-row
@@ -115,11 +115,11 @@
             ¿Debe utilizar anteojos?
           </mat-slide-toggle>
           <mat-slide-toggle formControlName="isDiabetic">
-            ¿Es diabético?
+            ¿Es diabético/a?
           </mat-slide-toggle>
         </div>
 
-        <mat-form-field appearance="fill" class="full-width">
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>Datos adicionales</mat-label>
           <textarea matInput formControlName="aditionalData"></textarea>
         </mat-form-field>

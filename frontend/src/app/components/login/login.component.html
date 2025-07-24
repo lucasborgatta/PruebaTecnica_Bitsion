@@ -4,38 +4,40 @@
 <div class="auth-container">
   <h2>Bienvenido al sistema</h2>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" />
-      <mat-error *ngIf="loginForm.get('email')?.hasError('required')"
-        >El email es obligatorio</mat-error
-      >
-      <mat-error *ngIf="loginForm.get('email')?.hasError('email')"
-        >Formato de email inválido</mat-error
-      >
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Contraseña</mat-label>
-      <input
-        matInput
-        [type]="hide() ? 'password' : 'text'"
-        formControlName="password"
-      />
-      <button
-        matIconButton
-        matSuffix
-        type="button"
-        class="button-password-hide"
-        (click)="clickEvent($event)"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide()"
-      >
-        <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
-      </button>
-      <mat-error *ngIf="loginForm.get('password')?.hasError('required')"
-        >La contraseña es obligatoria</mat-error
-      >
-    </mat-form-field>
+    <div class="inputs-container">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')"
+          >El email es obligatorio</mat-error
+        >
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')"
+          >Formato de email inválido</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          [type]="hide() ? 'password' : 'text'"
+          formControlName="password"
+        />
+        <button
+          matIconButton
+          matSuffix
+          type="button"
+          class="button-password-hide"
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()"
+        >
+          <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')"
+          >La contraseña es obligatoria</mat-error
+        >
+      </mat-form-field>
+    </div>
     <button mat-raised-button color="primary" type="submit" class="full-width">
       Iniciar sesión
     </button>

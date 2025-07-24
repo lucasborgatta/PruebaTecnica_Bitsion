@@ -38,4 +38,35 @@ export class PersonaService {
   notificarPersonasActualizadas() {
     this.personasActualizadas.next();
   }
+
+  filterPersonas(filters: {
+    fullName?: string;
+    identification?: string;
+    age?: number;
+    gender?: string;
+    isActive?: boolean;
+    drives?: boolean;
+    usesGlasses?: boolean;
+    isDiabetic?: boolean;
+  }): Observable<Persona[]> {
+    const params = new URLSearchParams();
+
+    if (filters.fullName) params.append('fullName', filters.fullName);
+    if (filters.identification)
+      params.append('identification', filters.identification);
+    if (filters.age !== undefined) params.append('age', filters.age.toString());
+    if (filters.gender) params.append('gender', filters.gender);
+    if (filters.isActive !== undefined)
+      params.append('isActive', filters.isActive.toString());
+    if (filters.drives !== undefined)
+      params.append('drives', filters.drives.toString());
+    if (filters.usesGlasses !== undefined)
+      params.append('usesGlasses', filters.usesGlasses.toString());
+    if (filters.isDiabetic !== undefined)
+      params.append('isDiabetic', filters.isDiabetic.toString());
+
+    return this.http.get<Persona[]>(
+      `${this.apiURL}/filter?${params.toString()}`
+    );
+  }
 }

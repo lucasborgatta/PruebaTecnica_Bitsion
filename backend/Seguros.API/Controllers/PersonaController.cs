@@ -55,5 +55,26 @@ namespace Seguros.API.Controllers
                 return NotFound();
             return NoContent();
         }
+
+        [HttpGet("filter")]
+        public async Task<IActionResult> Filter(
+        [FromQuery] string? fullName,
+        [FromQuery] string? identification,
+        [FromQuery] int? age,
+        [FromQuery] string? gender,
+        [FromQuery] bool? isActive,
+        [FromQuery] bool? drives,
+        [FromQuery] bool? usesGlasses,
+        [FromQuery] bool? isDiabetic
+)
+        {
+            var result = await _personaService.FilterPersonasAsync(
+                fullName, identification, age, gender,
+                isActive, drives, usesGlasses, isDiabetic
+            );
+
+            return Ok(result);
+        }
+
     }
 }

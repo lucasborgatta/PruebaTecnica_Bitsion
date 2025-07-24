@@ -71,5 +71,46 @@ namespace Seguros.API.Services
             await _context.SaveChangesAsync();
             return (true, null);
         }
+
+        public async Task<List<Persona>> FilterPersonasAsync(
+        string? fullName,
+        string? identification,
+        int? age,
+        string? gender,
+        bool? isActive,
+        bool? drives,
+        bool? usesGlasses,
+        bool? isDiabetic
+)
+        {
+            var query = _context.Personas.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(fullName))
+                query = query.Where(p => p.FullName.Contains(fullName));
+
+            if (!string.IsNullOrWhiteSpace(identification))
+                query = query.Where(p => p.Identification.Contains(identification));
+
+            if (age.HasValue)
+                query = query.Where(p => p.Age == age.Value);
+
+            if (!string.IsNullOrWhiteSpace(gender))
+                query = query.Where(p => p.Gender == gender);
+
+            if (isActive.HasValue)
+                query = query.Where(p => p.IsActive == isActive.Value);
+
+            if (drives.HasValue)
+                query = query.Where(p => p.Drives == drives.Value);
+
+            if (usesGlasses.HasValue)
+                query = query.Where(p => p.UsesGlasses == usesGlasses.Value);
+
+            if (isDiabetic.HasValue)
+                query = query.Where(p => p.IsDiabetic == isDiabetic.Value);
+
+            return await query.ToListAsync();
+        }
+
     }
 }
