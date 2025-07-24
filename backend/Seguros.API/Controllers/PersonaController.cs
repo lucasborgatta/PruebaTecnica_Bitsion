@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using Seguros.API.Data;
 using Seguros.API.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Seguros.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class PersonaController : ControllerBase
     {
         private readonly ApplicationDbContext _context;

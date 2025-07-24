@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { PersonaFormComponent } from './components/persona-form/persona-form.component';
@@ -10,10 +10,10 @@ import { PersonaTableComponent } from './components/persona-table/persona-table.
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MaterialModule } from './material.module';
-
-const routes: Routes = [
-  // Definí tus rutas si querés usar el router
-];
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { AuthGuard } from './guard/auth.guard';
+import { MainLayoutComponent } from './components/main-layout/main-layout.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -21,17 +21,20 @@ const routes: Routes = [
     PersonaFormComponent,
     PersonaTableComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ConfirmDialogComponent,
+    MainLayoutComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes),
-    MaterialModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    MaterialModule,
+    HttpClientModule,
+    AppRoutingModule
+],
+  providers: [AuthGuard],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

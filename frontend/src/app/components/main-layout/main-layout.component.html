@@ -1,0 +1,19 @@
+<div class="banner">
+  <div class="container">
+    <span class="banner-title">Empresa Ficticia S.A.</span>
+    <button
+      mat-stroked-button
+      color="warn"
+      class="logout-btn"
+      (click)="logout()"
+    >
+      Cerrar sesión
+    </button>
+  </div>
+</div>
+<app-persona-table (editar)="personaSeleccionada = $event"></app-persona-table>
+<hr />
+<app-persona-form
+  [personaSeleccionada]="personaSeleccionada"
+  (limpiarSeleccion)="personaSeleccionada = undefined"
+></app-persona-form>

@@ -1,1 +1,26 @@
-<p>register works!</p>
+<div class="auth-banner">
+  <span class="banner-title">Empresa Ficticia S.A.</span>
+</div>
+<div class="auth-container">
+  <h2>Crear cuenta</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error *ngIf="registerForm.get('email')?.hasError('required')">El email es obligatorio</mat-error>
+      <mat-error *ngIf="registerForm.get('email')?.hasError('email')">Formato de email inválido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="password" />
+      <mat-error *ngIf="registerForm.get('password')?.hasError('required')">La contraseña es obligatoria</mat-error>
+      <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">Mínimo 6 caracteres</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" class="full-width">Registrarse</button>
+    <div *ngIf="error" class="error">{{ error }}</div>
+  </form>
+  <div class="auth-link">
+    <span>¿Ya tenés cuenta?</span>
+    <button mat-button color="warn" routerLink="/login">Iniciar sesión</button>
+  </div>
+</div>

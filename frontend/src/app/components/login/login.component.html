@@ -1,1 +1,25 @@
-<p>login works!</p>
+<div class="auth-banner">
+  <span class="banner-title">Empresa Ficticia S.A.</span>
+</div>
+<div class="auth-container">
+  <h2>Bienvenido al sistema</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error *ngIf="loginForm.get('email')?.hasError('required')">El email es obligatorio</mat-error>
+      <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Formato de email inválido</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="password" />
+      <mat-error *ngIf="loginForm.get('password')?.hasError('required')">La contraseña es obligatoria</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" class="full-width">Iniciar sesión</button>
+    <div *ngIf="error" class="error">{{ error }}</div>
+  </form>
+  <div class="auth-link">
+    <span>¿No tenés cuenta?</span>
+    <button mat-button color="warn" routerLink="/register">Registrate</button>
+  </div>
+</div>

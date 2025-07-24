@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Atención!</h2>
+<mat-dialog-content>{{ data.message }}</mat-dialog-content>
+<div class="dialog-button-container">
+  <mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="onCancel()">
+      Cancelar
+    </button>
+    <button mat-raised-button color="primary" (click)="onConfirm()">
+      Aceptar
+    </button>
+  </mat-dialog-actions>
+</div>

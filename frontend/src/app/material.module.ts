@@ -11,7 +11,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-
+import {MatRippleModule} from '@angular/material/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatChipsModule } from '@angular/material/chips';
 @NgModule({
   exports: [
     MatFormFieldModule,
@@ -25,7 +28,11 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatCheckboxModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatRippleModule,
+    ReactiveFormsModule,
+    MatPaginatorModule,
+    MatChipsModule
   ]
 })
 export class MaterialModule { }

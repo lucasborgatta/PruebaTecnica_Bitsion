@@ -1,69 +1,132 @@
 <div class="form-container">
-  <form [formGroup]="personaForm" class="form-group">
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Nombre y Apellido</mat-label>
-      <input matInput formControlName="fullName" />
-      <mat-error *ngIf="personaForm.get('fullName')?.hasError('required')">
-        Este campo es obligatorio
-      </mat-error>
-    </mat-form-field>
+  <h1>Formulario de carga de nuevos clientes:</h1>
+  <form
+    [formGroup]="personaForm"
+    class="form-group"
+    (ngSubmit)="guardarPersona()"
+  >
+    <div class="form-grid">
+      <div class="form-col">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Nombre y Apellido</mat-label>
+          <input
+            matInput
+            [errorStateMatcher]="matcher"
+            formControlName="fullName"
+          />
+          <mat-error *ngIf="personaForm.get('fullName')?.hasError('required')">
+            Este campo es obligatorio
+          </mat-error>
+          <mat-error *ngIf="personaForm.get('fullName')?.hasError('pattern')">
+            Solo se permiten ingresar letras y espacios
+          </mat-error>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>DNI</mat-label>
-      <input matInput formControlName="identification" />
-      <mat-error *ngIf="personaForm.get('identification')?.hasError('required')">
-        Este campo es obligatorio
-      </mat-error>
-    </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>DNI</mat-label>
+          <input
+            matInput
+            [errorStateMatcher]="matcher"
+            formControlName="identification"
+          />
+          <mat-error
+            *ngIf="personaForm.get('identification')?.hasError('required')"
+          >
+            Este campo es obligatorio
+          </mat-error>
+          <mat-error
+            *ngIf="personaForm.get('identification')?.hasError('minlength')"
+          >
+            El DNI debe tener 8 dígitos
+          </mat-error>
+          <mat-error
+            *ngIf="personaForm.get('identification')?.hasError('maxlength')"
+          >
+            El DNI debe tener 8 dígitos
+          </mat-error>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Edad</mat-label>
-      <input matInput type="number" formControlName="age" />
-      <mat-error *ngIf="personaForm.get('age')?.hasError('required')">
-        Este campo es obligatorio
-      </mat-error>
-      <mat-error *ngIf="personaForm.get('age')?.hasError('min')">
-        Debe tener al menos 18 años
-      </mat-error>
-    </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Edad</mat-label>
+          <input
+            matInput
+            [errorStateMatcher]="matcher"
+            type="number"
+            formControlName="age"
+          />
+          <mat-error *ngIf="personaForm.get('age')?.hasError('required')">
+            Este campo es obligatorio
+          </mat-error>
+          <mat-error *ngIf="personaForm.get('age')?.hasError('min')">
+            Debe tener al menos 18 años
+          </mat-error>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Género</mat-label>
-      <mat-select formControlName="gender">
-        <mat-option value="masculino">Masculino</mat-option>
-        <mat-option value="femenino">Femenino</mat-option>
-        <mat-option value="n/a">Prefiero no decirlo</mat-option>
-      </mat-select>
-      <mat-error *ngIf="personaForm.get('gender')?.hasError('required')">
-        Este campo es obligatorio
-      </mat-error>
-    </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Género</mat-label>
+          <mat-select [errorStateMatcher]="matcher" formControlName="gender">
+            <mat-option value="Masculino">Masculino</mat-option>
+            <mat-option value="Femenino">Femenino</mat-option>
+            <mat-option value="N/A">Prefiero no decirlo</mat-option>
+          </mat-select>
+          <mat-error *ngIf="personaForm.get('gender')?.hasError('required')">
+            Este campo es obligatorio
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-    <mat-slide-toggle formControlName="hasDriverLicense">
-      ¿Tiene carnet de conducir?
-    </mat-slide-toggle>
+      <div class="form-col">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>¿Padece alguna enfermedad? (Enter para agregar)</mat-label>
+          <mat-chip-grid #chipGrid aria-label="Enfermedades">
+            <mat-chip-row
+              *ngFor="let disease of otherDiseasesList"
+              (removed)="removeDisease(disease)"
+            >
+              {{ disease }}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+            <input
+              placeholder="Agregar enfermedad..."
+              [matChipInputFor]="chipGrid"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="addDisease($event)"
+            />
+          </mat-chip-grid>
+        </mat-form-field>
 
-    <mat-slide-toggle formControlName="isFitToDrive">
-      ¿Se encuentra apto para conducir?
-    </mat-slide-toggle>
-
-    <mat-slide-toggle formControlName="hasVisionProblems">
-      ¿Tiene problemas de vista?
-    </mat-slide-toggle>
-
-    <div *ngIf="personaForm.get('hasVisionProblems')?.value">
-      <mat-slide-toggle formControlName="needsGlasses">
-        ¿Debe utilizar anteojos?
-      </mat-slide-toggle>
+        <div class="toggles">
+          <mat-slide-toggle formControlName="isActive">
+            Cliente activo
+          </mat-slide-toggle>
+          <mat-slide-toggle formControlName="drives">
+            ¿Tiene carnet de conducir?
+          </mat-slide-toggle>
+          <mat-slide-toggle formControlName="usesGlasses">
+            ¿Debe utilizar anteojos?
+          </mat-slide-toggle>
+          <mat-slide-toggle formControlName="isDiabetic">
+            ¿Es diabético?
+          </mat-slide-toggle>
+        </div>
+      </div>
     </div>
 
-    <mat-slide-toggle formControlName="isDiabetic">
-      ¿Es diabético?
-    </mat-slide-toggle>
-
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>¿Padece alguna enfermedad? ¿Cuál?</mat-label>
-      <input matInput formControlName="otherDiseases" />
-    </mat-form-field>
+    <div class="button-container">
+      <button
+        *ngIf="personaSeleccionada"
+        mat-button
+        (click)="cancelarEdicion()"
+        type="button"
+      >
+        Cancelar
+      </button>
+      <button mat-raised-button color="primary" type="submit">
+        {{ personaSeleccionada ? "Guardar Cambios" : "Registrar" }}
+      </button>
+    </div>
   </form>
 </div>

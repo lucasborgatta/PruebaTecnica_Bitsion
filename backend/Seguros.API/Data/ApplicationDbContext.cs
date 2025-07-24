@@ -9,5 +9,6 @@ namespace Seguros.API.Data
             : base(options) { }
 
         public DbSet<Persona> Personas { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }
