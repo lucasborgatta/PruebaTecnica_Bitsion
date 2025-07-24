@@ -12,5 +12,6 @@ namespace Seguros.API.Models
         public bool UsesGlasses { get; set; }
         public bool IsDiabetic { get; set; }
         public string? OtherDiseases { get; set; }
+        public string? AditionalData { get; set; }
     }
 }

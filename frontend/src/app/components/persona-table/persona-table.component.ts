@@ -27,6 +27,7 @@ export class PersonaTableComponent implements AfterViewInit {
     'usesGlasses',
     'isDiabetic',
     'otherDiseases',
+    'aditionalData',
     'edit',
     'delete',
   ];

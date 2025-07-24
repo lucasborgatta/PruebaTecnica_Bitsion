@@ -69,6 +69,7 @@ namespace Seguros.API.Controllers
             existingPersona.UsesGlasses = persona.UsesGlasses;
             existingPersona.IsDiabetic = persona.IsDiabetic;
             existingPersona.OtherDiseases = persona.OtherDiseases;
+            existingPersona.AditionalData = persona.AditionalData;
 
             await _context.SaveChangesAsync();
 

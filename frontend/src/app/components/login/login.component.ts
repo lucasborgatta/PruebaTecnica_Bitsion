@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -11,6 +11,11 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm: FormGroup;
   error: string = '';
+  hide = signal(true);
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -30,13 +35,11 @@ export class LoginComponent {
     }
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
-        // Guardar el token JWT
         localStorage.setItem('token', res.token);
-        // Redirigir a la pantalla principal
         this.router.navigate(['/']);
       },
       error: err => {
-        this.error = err.error?.message || 'Error al iniciar sesión';
+        this.error = err.error || 'Error al iniciar sesión.';
       }
     });
   }

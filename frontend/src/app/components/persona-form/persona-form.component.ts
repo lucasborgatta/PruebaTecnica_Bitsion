@@ -53,6 +53,7 @@ export class PersonaFormComponent {
       usesGlasses: [false],
       isDiabetic: [false],
       otherDiseases: [''],
+      aditionalData: [''],
     });
   }
 

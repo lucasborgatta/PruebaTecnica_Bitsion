@@ -1,5 +1,11 @@
 <div class="form-container">
-  <h1>Formulario de carga de nuevos clientes:</h1>
+  <h1>
+    {{
+      personaSeleccionada
+        ? "Formulario de edición de clientes:"
+        : "Formulario de carga de nuevos clientes:"
+    }}
+  </h1>
   <form
     [formGroup]="personaForm"
     class="form-group"
@@ -112,6 +118,11 @@
             ¿Es diabético?
           </mat-slide-toggle>
         </div>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Datos adicionales</mat-label>
+          <textarea matInput formControlName="aditionalData"></textarea>
+        </mat-form-field>
       </div>
     </div>
 

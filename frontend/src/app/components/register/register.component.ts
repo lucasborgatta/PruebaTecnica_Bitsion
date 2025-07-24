@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -11,6 +11,11 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
   registerForm: FormGroup;
   error: string = '';
+  hide = signal(true);
+    clickEvent(event: MouseEvent) {
+      this.hide.set(!this.hide());
+      event.stopPropagation();
+    }
 
   constructor(
     private fb: FormBuilder,
@@ -18,7 +23,7 @@ export class RegisterComponent {
     private router: Router
   ) {
     this.registerForm = this.fb.group({
-      NombreUsuario: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -30,11 +35,10 @@ export class RegisterComponent {
     }
     this.authService.register(this.registerForm.value).subscribe({
       next: () => {
-        // Redirigir al login después de registrarse
         this.router.navigate(['/login']);
       },
       error: err => {
-        this.error = err.error?.message || 'Error al registrar';
+        this.error = err.error || 'Error al registrar.';
       }
     });
   }

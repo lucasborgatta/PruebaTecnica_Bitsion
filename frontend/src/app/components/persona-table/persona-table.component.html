@@ -45,6 +45,10 @@
       <th mat-header-cell *matHeaderCellDef>Enfermedades</th>
       <td mat-cell *matCellDef="let element">{{ element.otherDiseases }}</td>
     </ng-container>
+    <ng-container matColumnDef="aditionalData">
+      <th mat-header-cell *matHeaderCellDef>Datos adicionales</th>
+      <td mat-cell *matCellDef="let element">{{ element.aditionalData }}</td>
+    </ng-container>
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef>Editar</th>
       <td mat-cell *matCellDef="let element">

@@ -28,6 +28,12 @@ namespace Seguros.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto request)
         {
+            var emailExists = await _context.Usuarios.AnyAsync(u => u.Email == request.Email);
+            if (emailExists)
+            {
+                return BadRequest("El email ya se encuentra registrado.");
+            }
+
             var usuario = new Usuario
             {
                 Email = request.Email

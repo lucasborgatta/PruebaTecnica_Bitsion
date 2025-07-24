@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { PersonaFormComponent } from './components/persona-form/persona-form.component';
@@ -14,6 +14,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { AuthGuard } from './guard/auth.guard';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthInterceptor } from './guard/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,9 +33,16 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    AppRoutingModule
-],
-  providers: [AuthGuard],
+    AppRoutingModule,
+  ],
+  providers: [
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
