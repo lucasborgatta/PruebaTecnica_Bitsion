@@ -6,6 +6,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<Seguros.API.Services.IPersonaService, Seguros.API.Services.PersonaService>();
+builder.Services.AddScoped<Seguros.API.Services.IAuthService, Seguros.API.Services.AuthService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
