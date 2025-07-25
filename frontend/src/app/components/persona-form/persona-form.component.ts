@@ -57,6 +57,7 @@ export class PersonaFormComponent {
     });
   }
 
+
   // Cuando se quiere agregar una enfermedad nueva se valida que el valor ingresado no exista ya en la lista, se agrega y se actualiza el formulario
   addDisease(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -128,6 +129,7 @@ export class PersonaFormComponent {
         return;
       }
       // Creamos a la persona nueva, notificamos el cambio al service y limpiamos los campos
+      formValue.identification = formValue.identification.toString();
       this.personaService.createPersona(formValue).subscribe(() => {
         this.personaService.notificarPersonasActualizadas();
         this.limpiarSeleccion.emit();
@@ -155,6 +157,7 @@ export class PersonaFormComponent {
       usesGlasses: false,
       isDiabetic: false,
       otherDiseases: '',
+      aditionalData: ''
     });
     this.otherDiseasesList = [];
     this.personaForm.markAsPristine();
